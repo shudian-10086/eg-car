@@ -1,0 +1,560 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 45 100% 51%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 45 100% 51%;
+    --radius: 1rem;
+  }
+
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+    --card: 224 71% 4%;
+    --card-foreground: 213 31% 91%;
+    --popover: 224 71% 4%;
+    --popover-foreground: 213 31% 91%;
+    --primary: 45 100% 51%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 215 28% 17%;
+    --secondary-foreground: 213 31% 91%;
+    --muted: 215 28% 17%;
+    --muted-foreground: 217 33% 64%;
+    --accent: 215 28% 17%;
+    --accent-foreground: 213 31% 91%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 213 31% 91%;
+    --border: 215 28% 17%;
+    --input: 215 28% 17%;
+    --ring: 45 100% 51%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Eggy Car Style Animations */
+@keyframes bounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  40%, 43% {
+    transform: translate3d(0, -30px, 0);
+  }
+  70% {
+    transform: translate3d(0, -15px, 0);
+  }
+  90% {
+    transform: translate3d(0, -4px, 0);
+  }
+}
+
+@keyframes wobble {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  25% {
+    transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);
+  }
+  75% {
+    transform: translate3d(15%, 0, 0) rotate3d(0, 0, 1, 3deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes drive {
+  0% {
+    transform: translateX(-100px);
+  }
+  100% {
+    transform: translateX(100px);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255, 193, 7, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(255, 193, 7, 0.8);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-bounce-custom {
+  animation: bounce 2s infinite;
+}
+
+.animate-wobble {
+  animation: wobble 2s ease-in-out infinite;
+}
+
+.animate-drive {
+  animation: drive 4s ease-in-out infinite alternate;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.6s ease-out;
+}
+
+/* Delay classes */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+
+/* Eggy Car Style Cards */
+.eggy-card {
+  @apply bg-white border-2 border-yellow-400 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300;
+  background: linear-gradient(145deg, #ffffff, #fef3c7);
+
+}
+
+.eggy-card:hover {
+  @apply transform -translate-y-2;
+  box-shadow: 0 25px 50px rgba(251, 191, 36, 0.3);
+}
+
+.dark .eggy-card {
+  @apply bg-gray-800 border-yellow-500 text-gray-100;
+  background: linear-gradient(145deg, #1f2937, #374151);
+}
+
+/* Eggy Car Button Styles */
+.eggy-btn {
+  @apply relative overflow-hidden transition-all duration-300 font-bold rounded-full text-white;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+  border: 3px solid #fbbf24;
+}
+
+.eggy-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.5s;
+}
+
+.eggy-btn:hover::before {
+  left: 100%;
+}
+
+.eggy-btn:hover {
+  @apply transform -translate-y-1 scale-105;
+  box-shadow: 0 12px 35px rgba(245, 158, 11, 0.6);
+}
+
+/* Eggy Car Background */
+.eggy-bg {
+  background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 50%, #fbbf24 100%);
+}
+
+.eggy-bg-alt {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 50%, #93c5fd 100%);
+}
+
+/* Game Frame Styles */
+.eggy-game-frame {
+  @apply relative rounded-3xl overflow-hidden border-4 border-yellow-400;
+  background: linear-gradient(145deg, #ffffff, #fef3c7);
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 0 0 8px #fbbf24;
+}
+
+.dark .eggy-game-frame {
+  background: linear-gradient(145deg, #1f2937, #374151);
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 0 8px #f59e0b;
+}
+
+/* Eggy Car Typography */
+.eggy-title {
+  @apply text-4xl md:text-6xl lg:text-7xl font-black tracking-tight;
+  background: linear-gradient(135deg, #f59e0b, #d97706, #92400e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  filter: drop-shadow(3px 3px 6px rgba(245, 158, 11, 0.3));
+}
+
+.eggy-subtitle {
+  @apply text-lg md:text-xl font-bold text-gray-700 dark:text-gray-200;
+}
+
+.dark .eggy-subtitle {
+  @apply text-gray-200;
+}
+
+/* Colorful Icons */
+.eggy-icon {
+  @apply w-16 h-16 rounded-2xl flex items-center justify-center text-white border-4;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  border-color: #fbbf24;
+  box-shadow: 0 8px 32px rgba(245, 158, 11, 0.3);
+}
+
+.eggy-icon.blue {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  border-color: #60a5fa;
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
+}
+
+.eggy-icon.green {
+  background: linear-gradient(135deg, #10b981, #047857);
+  border-color: #34d399;
+  box-shadow: 0 8px 32px rgba(16, 185, 129, 0.3);
+}
+
+.eggy-icon.red {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  border-color: #f87171;
+  box-shadow: 0 8px 32px rgba(239, 68, 68, 0.3);
+}
+
+/* Eggy Car Stats */
+.eggy-stat {
+  @apply text-center p-6 rounded-2xl border-4 border-yellow-400 text-gray-800;
+  background: linear-gradient(145deg, #ffffff, #fef3c7);
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.2);
+}
+
+.dark .eggy-stat {
+  @apply text-gray-100;
+  background: linear-gradient(145deg, #1f2937, #374151);
+  border-color: #f59e0b;
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+}
+
+/* Layout */
+.eggy-container {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.eggy-section {
+  @apply py-16 lg:py-24;
+}
+
+/* Eggy Car Navigation */
+.eggy-nav {
+  @apply backdrop-blur-xl border-b-4 border-yellow-400;
+  background: rgba(254, 243, 199, 0.9);
+  box-shadow: 0 8px 32px rgba(245, 158, 11, 0.2);
+}
+
+.dark .eggy-nav {
+  background: rgba(31, 41, 55, 0.9);
+  border-color: #f59e0b;
+  box-shadow: 0 8px 32px rgba(245, 158, 11, 0.3);
+}
+
+/* Eggy Car Footer */
+.eggy-footer {
+  @apply text-gray-800;
+  background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+  border-top: 4px solid #fbbf24;
+}
+
+.dark .eggy-footer {
+  @apply text-gray-100;
+  background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+  border-color: #f59e0b;
+}
+
+/* Decorative Elements */
+.eggy-dots {
+  background-image: radial-gradient(circle, #fbbf24 2px, transparent 2px);
+  background-size: 30px 30px;
+  opacity: 0.1;
+}
+
+.eggy-pattern {
+  background-image: 
+    linear-gradient(45deg, transparent 40%, rgba(251, 191, 36, 0.1) 50%, transparent 60%),
+    linear-gradient(-45deg, transparent 40%, rgba(59, 130, 246, 0.1) 50%, transparent 60%);
+  background-size: 40px 40px;
+}
+
+/* Car Animation Elements */
+.car-road {
+  @apply relative overflow-hidden;
+  background: linear-gradient(to right, #6b7280 0%, #9ca3af 50%, #6b7280 100%);
+  height: 8px;
+  border-radius: 4px;
+}
+
+.car-road::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: repeating-linear-gradient(
+    to right,
+    #fbbf24 0px,
+    #fbbf24 20px,
+    transparent 20px,
+    transparent 40px
+  );
+  transform: translateY(-50%);
+  animation: drive 2s linear infinite;
+}
+
+/* Responsive adjustments */
+
+/* Missing utility classes */
+.container-custom {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.nav-link {
+  @apply text-foreground hover:text-primary transition-colors duration-200;
+}
+
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+}
+
+.animate-fade-in-up {
+  animation: slide-up 0.6s ease-out;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.6s ease-out;
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .eggy-title {
+    @apply text-3xl md:text-4xl;
+  }
+  
+  .eggy-card {
+    @apply border-2;
+  }
+  
+  .eggy-game-frame {
+    @apply border-2;
+    box-shadow: 
+      0 15px 30px rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6),
+      0 0 0 4px #fbbf24;
+  }
+}
+
+/* Fun hover effects */
+.eggy-hover:hover {
+  animation: wobble 0.8s ease-in-out;
+}
+
+.eggy-bounce:hover {
+  animation: bounce-custom 1s ease-in-out;
+}
+
+/* Game Preview Card Styles */
+.game-preview-card {
+  transform: perspective(1000px);
+  transition: all 0.3s ease;
+}
+
+.game-preview-card:hover {
+  transform: perspective(1000px) translateY(-8px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+}
+
+.game-preview-area {
+  position: relative;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+}
+
+.game-icon-container {
+  background: linear-gradient(145deg, #ffffff, #f8f9fa);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease;
+}
+
+.game-icon-container:hover {
+  transform: scale(1.05);
+  box-shadow: 
+    0 12px 40px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.game-info-footer {
+  backdrop-filter: blur(10px);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(20, 20, 20, 0.9));
+}
+
+/* Enhanced hover effects for action buttons */
+.game-info-footer button:hover {
+  transform: translateY(-2px);
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .game-preview-card {
+    margin: 0 16px;
+  }
+  
+  .game-preview-area {
+    height: 240px;
+  }
+  
+  .game-icon-container {
+    width: 96px;
+    height: 96px;
+    padding: 16px;
+  }
+}
+
+/* Game Section Mobile Optimizations */
+@media (max-width: 1024px) {
+  .lg\:col-span-3 {
+    order: 1;
+  }
+  
+  .lg\:col-span-1 {
+    order: 2;
+    margin-top: 2rem;
+  }
+  
+  /* Hot Games Grid调整为移动端单列 */
+  .hot-games-mobile {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Enhanced Game Preview Styles */
+.game-preview-card {
+  background: linear-gradient(145deg, #374151, #111827);
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.game-preview-area {
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    linear-gradient(135deg, #3b82f6, #10b981);
+}
+
+/* Hot Games Hover Effects */
+.hot-game-card:hover {
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.25);
+}
+
+/* 游戏门户自定义样式变量 */
+:root {
+  --neon-blue: #00f5ff;
+  --neon-purple: #bf00ff;
+  --dark-bg: #0a0a0f;
+  --card-bg: rgba(15, 23, 42, 0.8);
+}
+
+.neon-glow {
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+}
+
+.game-card {
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hero-text {
+  text-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
+}
