@@ -558,3 +558,46 @@
 .hero-text {
   text-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
 }
+
+/* 响应式iframe规则 */
+.responsive-iframe-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 宽高比 */
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.responsive-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: #000;
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+  .responsive-iframe-container {
+    padding-bottom: 75%; /* 移动端使用4:3宽高比 */
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .responsive-iframe-container {
+    padding-bottom: 100%; /* 小屏幕使用1:1宽高比 */
+    min-height: 280px;
+  }
+}
+
+/* 超宽屏优化 */
+@media (min-width: 1920px) {
+  .responsive-iframe-container {
+    max-height: 800px;
+    padding-bottom: 41.67%; /* 限制最大高度 */
+  }
+}

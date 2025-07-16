@@ -42,14 +42,14 @@ const GameTips = () => {
   ];
 
   return (
-    <section className="py-16 bg-slate-800/20">
+    <section id="game-tips" className="py-16 bg-slate-800/20">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
-            🥚 Eggy Car Mastery Guide
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
+            🥚 Eggy Car Unblocked Mastery Guide
           </h2>
           <p className="text-gray-400 text-lg max-w-3xl mx-auto">
-            Master the art of egg transportation with these proven strategies and tips from top players
+            Master these essential tips and become an Eggy Car Unblocked champion. Learn from the pros!
           </p>
         </div>
 

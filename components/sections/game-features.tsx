@@ -48,15 +48,15 @@ const GameFeatures = () => {
   ];
 
   return (
-    <section className="py-16 bg-gradient-to-b from-slate-900/20 to-slate-800/30">
+    <section id="game-features" className="py-16 bg-gradient-to-b from-slate-900/20 to-slate-800/30">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-            ⚡ What Makes Eggy Car Special
+            ⚡ What Makes Eggy Car Unblocked Special
           </h2>
           <p className="text-gray-400 text-lg max-w-3xl mx-auto">
-            Discover the cutting-edge features that make Eggy Car the most addictive physics-based driving game
+            Discover the cutting-edge features that make Eggy Car Unblocked the most addictive physics-based driving game
           </p>
         </div>
 
@@ -105,7 +105,7 @@ const GameFeatures = () => {
                 🔬 Advanced Technology
               </h3>
               <p className="text-gray-300 mb-6 leading-relaxed">
-                Eggy Car leverages cutting-edge web technologies to deliver console-quality gaming 
+                Eggy Car Unblocked leverages cutting-edge web technologies to deliver console-quality gaming 
                 directly in your browser. Our proprietary physics engine calculates thousands of 
                 interactions per second to create the most realistic egg-carrying experience possible.
               </p>
@@ -131,15 +131,35 @@ const GameFeatures = () => {
             </div>
 
             <div className="relative">
-              <div className="bg-gradient-to-br from-yellow-500/20 to-orange-500/20 rounded-xl p-8 border border-yellow-500/30">
-                <div className="text-center">
-                  <div className="text-6xl mb-4">🥚</div>
-                  <h4 className="text-xl font-semibold text-white mb-2">
-                    The Perfect Egg Physics
-                  </h4>
-                  <p className="text-gray-300 text-sm">
+              <div className="bg-gradient-to-br from-yellow-500/20 to-orange-500/20 rounded-xl border border-yellow-500/30 overflow-hidden">
+                {/* Video Header */}
+                <div className="p-4 bg-black/30 flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="text-2xl">🥚</div>
+                    <h4 className="text-lg font-semibold text-white">
+                      The Perfect Egg Gameplay Video
+                    </h4>
+                  </div>
+
+                </div>
+                
+                {/* YouTube Video Area */}
+                <div className="relative bg-black aspect-video">
+                  <iframe
+                    className="w-full h-full"
+                    src="https://www.youtube.com/embed/U2SgrOeRrrs?rel=0&showinfo=0&modestbranding=1&fs=1&cc_load_policy=0&iv_load_policy=3&autohide=1"
+                    title="Eggy Car Physics Engine Demo"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+                
+                {/* Video Description */}
+                <div className="p-4">
+                  <p className="text-gray-300 text-sm leading-relaxed">
                     Every bounce, roll, and wobble is calculated with precision to create 
-                    the most authentic egg behavior in gaming.
+                    the most authentic egg behavior in gaming. Watch our physics engine in action!
                   </p>
                 </div>
               </div>

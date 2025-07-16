@@ -19,9 +19,9 @@ export default function Home() {
         <GameFeatures />
         <GameTips />
         <ControlsGuide />
-        <EggyFAQ />
+        <EggyFAQ />     
         <GamesGrid />
-        <StatsSection />
+         <StatsSection />
       </main>
       <GameFooter />
     </div>

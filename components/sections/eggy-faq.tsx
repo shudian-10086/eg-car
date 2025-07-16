@@ -13,7 +13,7 @@ const EggyFAQ = () => {
       color: "text-blue-400",
       questions: [
         {
-          question: "What is the main objective in Eggy Car?",
+          question: "What is the main objective in Eggy Car Unblocked?",
           answer: "Your goal is to drive as far as possible while keeping your egg safe on top of your car. The egg is fragile and will break if it falls off or bounces too hard, ending your run."
         },
         {
@@ -59,12 +59,12 @@ const EggyFAQ = () => {
       color: "text-green-400",
       questions: [
         {
-          question: "Why is the game running slowly on my device?",
-          answer: "Eggy Car requires a modern browser with HTML5 support. Try closing other browser tabs, updating your browser, or switching to a more powerful device for better performance."
+          question: "Why is Eggy Car Unblocked so popular?",
+          answer: "Eggy Car Unblocked combines simple controls with challenging physics-based gameplay. It's accessible anywhere, requires no downloads, and provides endless entertainment with its procedurally generated terrain."
         },
         {
-          question: "Can I play Eggy Car on mobile?",
-          answer: "Yes! Eggy Car is fully optimized for mobile devices. The touch controls are responsive and the game adapts to different screen sizes automatically."
+          question: "Can I play Eggy Car Unblocked on mobile?",
+          answer: "Yes! Eggy Car Unblocked is fully optimized for mobile devices. The touch controls are responsive and the game adapts to different screen sizes automatically."
         },
         {
           question: "The game won't load - what should I do?",
@@ -84,17 +84,14 @@ const EggyFAQ = () => {
   };
 
   return (
-    <section className="py-16 bg-slate-900/30">
+    <section id="faq" className="py-16 bg-slate-900/30">
       <div className="max-w-4xl mx-auto px-6 lg:px-8">
         <div className="text-center mb-12">
-          <div className="flex items-center justify-center mb-4">
-            <HelpCircle className="w-8 h-8 text-blue-400 mr-3" />
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
-              Eggy Car FAQ
-            </h2>
-          </div>
-          <p className="text-gray-400 text-lg">
-            Everything you need to know about mastering Eggy Car
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+            Eggy Car Unblocked Games FAQ
+          </h2>
+          <p className="text-gray-400 text-lg max-w-3xl mx-auto">
+            Everything you need to know about mastering Eggy Car Unblocked
           </p>
         </div>
 

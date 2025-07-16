@@ -31,8 +31,12 @@ const GamesGrid = () => {
     <section id="games-grid" className="py-16">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">More Amazing Games</h2>
-          <p className="text-gray-400 text-lg">Discover more exciting HTML5 games to play</p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-pink-400 to-red-400 bg-clip-text text-transparent">
+            🎮 More Games Like Eggy Car Unblocked
+          </h2>
+          <p className="text-gray-400 text-lg max-w-3xl mx-auto">
+            Love Eggy Car Unblocked? Try these other amazing unblocked games with similar physics-based gameplay
+          </p>
         </div>
 
         <div className="flex flex-wrap justify-center gap-4 mb-12">

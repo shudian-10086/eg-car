@@ -69,15 +69,15 @@ const ControlsGuide = () => {
   ];
 
   return (
-    <section className="py-16 bg-slate-800/30">
+    <section id="controls-guide" className="py-16 bg-slate-800/30">
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-            🎮 Master the Controls
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            Eggy Car Unblocked Controls
           </h2>
-          <p className="text-gray-400 text-lg">
-            Learn the essential controls and advanced techniques to become an Eggy Car champion
+          <p className="text-gray-400 text-lg max-w-3xl mx-auto">
+            Learn the essential controls and advanced techniques to become an Eggy Car Unblocked champion
           </p>
         </div>
 
