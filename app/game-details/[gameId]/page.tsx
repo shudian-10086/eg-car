@@ -1,10 +1,59 @@
-'use client'; // Client Component
-import { useParams } from 'next/navigation';
-import { Play, Star, Users } from 'lucide-react';
-import Image from 'next/image';
-import GameNavigation from '@/components/layout/game-navigation';
-import GameFooter from '@/components/layout/game-footer';
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import GameDetailsClient from './game-details-client';
 import { featuredGames, type Game } from '@/lib/game-data';
+
+// Helper function to get game by ID
+function getGameBySlug(gameId: string): Game | undefined {
+  return featuredGames.find(game =>
+    game.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') === gameId
+  );
+}
+
+// Generate metadata for each game
+export async function generateMetadata({ params }: { params: { gameId: string } }): Promise<Metadata> {
+  const gameId = params.gameId;
+  const game = getGameBySlug(gameId);
+
+  if (!game) {
+    return {
+      title: 'Game Not Found - Eggy Car Unblocked',
+      description: 'The requested game could not be found. Browse our collection of free unblocked games.',
+    };
+  }
+
+  // Generate game-specific SEO data
+  const gameTitle = `${game.title} Unblocked - Play Free Online ${game.category} Game`;
+  const gameDescription = `Play ${game.title} unblocked online for free! ${game.description} No download required - play instantly in your browser.`;
+  const gameKeywords = `${game.title} unblocked, ${game.title.toLowerCase()}, ${game.category.toLowerCase()} games, ${game.title.toLowerCase().replace(/\s+/g, ' ')}, play ${game.title.toLowerCase()}`;
+
+  return {
+    title: gameTitle,
+    description: gameDescription,
+    keywords: gameKeywords,
+    authors: [{ name: 'Eggy Car Unblocked Portal' }],
+    robots: 'index, follow',
+    openGraph: {
+      title: gameTitle,
+      description: gameDescription,
+      type: 'website',
+      images: [
+        {
+          url: game.image,
+          width: 800,
+          height: 600,
+          alt: `${game.title} - Free Online Game`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: gameTitle,
+      description: gameDescription,
+      images: [game.image],
+    },
+  };
+}
 
 // Game-specific content data
 const gameContent = {
@@ -281,18 +330,18 @@ A: Advanced algorithms translate your mouse movements into flowing silk-like vis
   }
 };
 
-export default function GameDetailsPage() {
-  const params = useParams();
-  const gameId = params.gameId as string;
+export default function GameDetailsPage({ params }: { params: { gameId: string } }) {
+  const gameId = params.gameId;
+  const currentGame = getGameBySlug(gameId);
 
-  // Find the game data
-  const currentGame = featuredGames.find(game => 
-    game.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') === gameId
-  );
+  // If game not found, return 404
+  if (!currentGame) {
+    notFound();
+  }
 
   // Get game content or use default
   const content = gameContent[gameId as keyof typeof gameContent] || {
-    introduction: `Welcome to ${currentGame?.title || 'this amazing game'}! Experience exciting gameplay with stunning graphics and engaging mechanics.`,
+    introduction: `Welcome to ${currentGame.title}! Experience exciting gameplay with stunning graphics and engaging mechanics.`,
     guide: `### How to Play
 - Use standard controls to navigate
 - Follow on-screen instructions
@@ -302,172 +351,8 @@ A: Simply click the play button and follow the instructions.
 
 ### Q: Is this game free?
 A: Yes, all our games are completely free to play.`,
-    embedPath: currentGame?.gameUrl.startsWith('/embed/') ? currentGame.gameUrl : '/embed/default/index.html'
+    embedPath: currentGame.gameUrl.startsWith('/embed/') ? currentGame.gameUrl : '/embed/default/index.html'
   };
 
-  // If game not found, show error
-  if (!currentGame) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
-        <GameNavigation />
-        <main className="pt-24 pb-16">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-            <h1 className="text-3xl font-bold text-red-400">Game Not Found</h1>
-            <p className="text-gray-400">The requested game could not be found.</p>
-            <button 
-              onClick={() => window.location.href = '/'}
-              className="px-6 py-3 bg-blue-600 hover:bg-blue-500 rounded-lg font-semibold transition-colors"
-            >
-              Back to Home
-            </button>
-          </div>
-        </main>
-        <GameFooter />
-      </div>
-    );
-  }
-
-  // Get recommended games (exclude current game and get 4 random games)
-  const getRecommendedGames = (): Game[] => {
-    const otherGames = featuredGames.filter(game => game.id !== currentGame.id);
-    // Shuffle and get first 4 games
-    const shuffled = otherGames.sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, 4);
-  };
-
-  const recommendedGames = getRecommendedGames();
-
-  // Handle game launch
-  const launchGame = (game: Game) => {
-    const gameSlug = game.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
-    window.location.href = `/game-details/${gameSlug}`;
-  };
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
-      {/* Navigation */}
-      <GameNavigation />
-
-      {/* Main Content */}
-      <main className="pt-24 pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-        {/* Game iframe embed */}
-        <div className="relative w-full bg-slate-800/50 border border-white/10 responsive-iframe-container">
-          <iframe
-            src={content.embedPath}
-            className="responsive-iframe"
-            sandbox="allow-scripts allow-same-origin"
-            title={currentGame.title}
-          />
-        </div>
-        
-        {/* Game Title and Rating */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
-          <h1 className="text-3xl font-bold">{currentGame.title}</h1>
-          <div className="flex items-center space-x-4 text-sm text-gray-400">
-            <div className="flex items-center space-x-1">
-              <Star className="w-4 h-4 text-yellow-400 fill-current" />
-              <span>{currentGame.rating}</span>
-            </div>
-            <div className="flex items-center space-x-1">
-              <Users className="w-4 h-4" />
-              <span>{currentGame.players} players</span>
-            </div>
-            <span className="px-2 py-1 bg-slate-700 rounded text-xs">{currentGame.category}</span>
-          </div>
-        </div>
-
-        {/* Game Introduction */}
-        <section>
-          <h2 className="text-2xl font-semibold mb-2">Game Introduction</h2>
-          <p className="whitespace-pre-line text-gray-300">{content.introduction}</p>
-        </section>
-
-        {/* Gameplay Guide */}
-        <section>
-          <h2 className="text-2xl font-semibold mb-2">How to Play</h2>
-          <div className="whitespace-pre-line text-gray-300">{content.guide}</div>
-        </section>
-
-        {/* FAQ */}
-        <section>
-          <h2 className="text-2xl font-semibold mb-2">FAQ</h2>
-          <div className="whitespace-pre-line text-gray-300">{content.faq}</div>
-        </section>
-
-        {/* Recommended Games */}
-        <section className="mt-12">
-          <div className="flex items-center space-x-3 mb-6">
-            <div className="text-3xl">🎮</div>
-            <h2 className="text-2xl font-semibold">More Games You Might Like</h2>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {recommendedGames.map((game) => (
-              <div 
-                key={game.id} 
-                className="bg-slate-800/50 rounded-xl p-4 hover:scale-105 transition-all duration-300 group backdrop-filter blur-10px border border-white/10 cursor-pointer"
-                onClick={() => launchGame(game)}
-              >
-                {/* Game Cover */}
-                <div className={`w-full h-32 bg-gradient-to-br ${game.gradient} rounded-lg mb-3 relative overflow-hidden`}>
-                  <Image
-                    src={game.image}
-                    alt={game.title}
-                    fill
-                    className="object-cover rounded-lg"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                    onError={(e) => {
-                      // If image fails to load, show placeholder
-                      const target = e.target as HTMLImageElement;
-                      target.style.display = 'none';
-                      const parent = target.parentElement;
-                      if (parent) {
-                        parent.innerHTML = `
-                          <div class="absolute inset-0 flex items-center justify-center text-4xl text-white">
-                            🎮
-                          </div>
-                        `;
-                      }
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-all duration-300"></div>
-                  <button className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-                    <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                      <Play className="w-4 h-4 text-white ml-1" />
-                    </div>
-                  </button>
-                </div>
-
-                {/* Game Info */}
-                <div className="space-y-2">
-                  <h3 className="font-semibold text-white group-hover:text-blue-400 transition-colors line-clamp-1">
-                    {game.title}
-                  </h3>
-                  <p className="text-sm text-gray-400 line-clamp-2">
-                    {game.description}
-                  </p>
-                  <div className="flex items-center justify-between text-xs text-gray-500">
-                    <div className="flex items-center space-x-1">
-                      <Star className="w-3 h-3 text-yellow-400 fill-current" />
-                      <span>{game.rating}</span>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <Users className="w-3 h-3" />
-                      <span>{game.players}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        </div>
-      </main>
-
-      {/* Footer */}
-      <GameFooter />
-    </div>
-  );
+  return <GameDetailsClient game={currentGame} content={content} />;
 }
