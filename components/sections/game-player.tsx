@@ -1,21 +1,43 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Star, Users, Gamepad2, RotateCcw, Maximize2, X } from 'lucide-react';
+import { Star, Users, Gamepad2, RotateCcw, Maximize2, X, Play } from 'lucide-react';
 
 const GamePlayer = () => {
   const [isGameFullscreen, setIsGameFullscreen] = useState(false);
+  const [isGameLoaded, setIsGameLoaded] = useState(false);
+  const [isGameLoading, setIsGameLoading] = useState(false);
+
+  // Load game for the first time
+  const loadGame = () => {
+    if (!isGameLoaded && !isGameLoading) {
+      setIsGameLoading(true);
+      setIsGameLoaded(true);
+
+      // 模拟加载延迟
+      setTimeout(() => {
+        setIsGameLoading(false);
+      }, 1500);
+    }
+  };
 
   // Reload game
   const reloadGame = () => {
     const iframe = document.getElementById('main-game-iframe') as HTMLIFrameElement;
     if (iframe) {
+      setIsGameLoading(true);
       iframe.src = iframe.src;
+      setTimeout(() => {
+        setIsGameLoading(false);
+      }, 1500);
     }
   };
 
   // Toggle fullscreen
   const toggleFullscreen = () => {
+    if (!isGameLoaded) {
+      loadGame();
+    }
     setIsGameFullscreen(!isGameFullscreen);
   };
 
@@ -44,12 +66,26 @@ const GamePlayer = () => {
             </div>
           </div>
           <div className="flex-1 w-full h-full">
-            <iframe
-              src="https://ubg98.github.io/EggyCar/"
-              className="w-full h-full border-none"
-              allowFullScreen
-              title="Eggy Car Unblocked Game"
-            />
+            {isGameLoaded ? (
+              <iframe
+                src="https://ubg98.github.io/EggyCar/"
+                className="w-full h-full border-none"
+                allowFullScreen
+                title="Eggy Car Unblocked Game"
+              />
+            ) : (
+              <div className="w-full h-full bg-slate-800 flex items-center justify-center">
+                <div className="text-center">
+                  <button
+                    onClick={loadGame}
+                    className="flex items-center space-x-3 px-8 py-4 bg-blue-600 hover:bg-blue-500 rounded-xl transition-all duration-300 transform hover:scale-105 text-lg font-semibold"
+                  >
+                    <Play className="w-6 h-6" />
+                    <span>Start Game</span>
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -64,9 +100,10 @@ const GamePlayer = () => {
               <button
                 onClick={reloadGame}
                 className="flex items-center space-x-2 px-3 md:px-4 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg transition-colors text-sm"
+                disabled={isGameLoading}
               >
-                <RotateCcw className="w-4 h-4" />
-                <span className="hidden sm:inline">Reload</span>
+                <RotateCcw className={`w-4 h-4 ${isGameLoading ? 'animate-spin' : ''}`} />
+                <span className="hidden sm:inline">{isGameLoading ? 'Loading...' : 'Reload'}</span>
               </button>
               <button
                 onClick={toggleFullscreen}
@@ -84,23 +121,70 @@ const GamePlayer = () => {
 
           {/* Game iframe Container - 使用响应式CSS类 */}
           <div className="relative w-full bg-slate-800/50 border border-white/10 responsive-iframe-container">
-            <iframe
-              id="main-game-iframe"
-              src="https://ubg98.github.io/EggyCar/"
-              className="responsive-iframe"
-              allowFullScreen
-              title="Eggy Car Unblocked Game"
-            />
-            
-            {/* Loading overlay (optional) */}
-            <div className="absolute inset-0 bg-slate-800 flex items-center justify-center pointer-events-none opacity-0 transition-opacity duration-300" id="game-loading">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center text-2xl mb-4 mx-auto animate-pulse">
-                  🥚
+            {isGameLoaded ? (
+              <iframe
+                id="main-game-iframe"
+                src="https://ubg98.github.io/EggyCar/"
+                className="responsive-iframe"
+                allowFullScreen
+                title="Eggy Car Unblocked Game"
+              />
+            ) : (
+              /* Game Preview with Play Button */
+              <div className="absolute inset-0 bg-gradient-to-br from-slate-800 via-slate-700 to-slate-800 flex items-center justify-center">
+                <div className="text-center space-y-6">
+
+                  {/* Game Title */}
+                  <div>
+                    <h3 className="text-2xl font-bold text-white mb-2">Eggy Car Unblocked</h3>
+                    <p className="text-gray-400 text-sm">Drive carefully and keep your egg safe!</p>
+                  </div>
+
+                  {/* Play Button */}
+                  <button
+                    onClick={loadGame}
+                    className="group flex items-center space-x-3 px-8 py-4 bg-blue-600 hover:bg-blue-500 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-blue-500/25"
+                    disabled={isGameLoading}
+                  >
+                    {isGameLoading ? (
+                      <>
+                        <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        <span className="text-lg font-semibold">Loading...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Play className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                        <span className="text-lg font-semibold">Start Game</span>
+                      </>
+                    )}
+                  </button>
+
+                  {/* Game Stats */}
+                  <div className="flex items-center justify-center space-x-4 text-sm text-gray-400">
+                    <div className="flex items-center space-x-1">
+                      <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                      <span>4.8</span>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      <Users className="w-4 h-4" />
+                      <span>2.1M players</span>
+                    </div>
+                  </div>
                 </div>
-                <p className="text-gray-400">Loading Eggy Car...</p>
               </div>
-            </div>
+            )}
+
+            {/* Loading overlay for reload */}
+            {isGameLoaded && isGameLoading && (
+              <div className="absolute inset-0 bg-slate-800/80 flex items-center justify-center backdrop-blur-sm">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center text-2xl mb-4 mx-auto">
+                    <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  </div>
+                  <p className="text-gray-300 font-medium">Reloading Game...</p>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Game Title and Info */}
