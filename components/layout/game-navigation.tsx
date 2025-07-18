@@ -12,8 +12,8 @@ const GameNavigation = () => {
     { href: '#game-features', label: 'Features', id: 'game-features' },
     { href: '#game-tips', label: 'Tips & Tricks', id: 'game-tips' },
     { href: '#controls-guide', label: 'Controls', id: 'controls-guide' },
-    { href: '#faq', label: 'FAQ', id: 'faq' },
-    {/* href: '#games-grid', label: 'More Games', id: 'games-grid' */}
+    { href: '#faq', label: 'FAQ', id: 'faq' }
+    // { href: '#games-grid', label: 'More Games', id: 'games-grid' }
   ];
 
   // Track active section based on scroll position

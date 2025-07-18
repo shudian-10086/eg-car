@@ -17,24 +17,12 @@ const GamesGrid = () => {
     { id: 'puzzle', name: 'Puzzle', icon: Users }
   ];
 
-  // Launch games - handle both local and external games
+  // Launch games - navigate to game details page
   const launchGame = (game: Game) => {
-    // Check if it's a local game (starts with /)
-    if (game.gameUrl.startsWith('/')) {
-      // Navigate to local game page
-      router.push(game.gameUrl);
-    } else {
-      // For external games, load in main game iframe
-      const iframe = document.getElementById('main-game-iframe') as HTMLIFrameElement;
-      if (iframe) {
-        iframe.src = game.gameUrl;
-      }
-      // Scroll to game section
-      const gameSection = document.getElementById('game-section');
-      if (gameSection) {
-        gameSection.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
+    // Create URL-friendly slug from game title
+    const gameSlug = game.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+    // Navigate to game details page
+    router.push(`/game-details/${gameSlug}`);
   };
 
   return (
